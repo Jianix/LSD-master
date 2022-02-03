@@ -147,11 +147,20 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--test', choices=['gaussian-laplace', 'laplace-gaussian',
                                            'gaussian-pert', 'rbm-pert', 'rbm-pert1'], type=str)
-    parser.add_argument('--dim_x', type=int, default=50)
-    parser.add_argument('--dim_h', type=int, default=40)
 
     # add the perturbation level as input parameter, default = 0.02
     parser.add_argument('--sigma_pert', type=float, default=.02)
+
+    # the lambda penalty term
+    parser.add_argument('--l2', type=float, default=0.)
+
+    # change the way we input the dimensions of RBM to suit the experiment purpose
+    parser.add_argument('--RBM_dim', type=int, nargs=2)
+
+    #parser.add_argument('--dim_x', type=int, default=50)
+    #parser.add_argument('--dim_h', type=int, default=40)
+
+
 
     parser.add_argument('--maximize_power', action="store_true")
     parser.add_argument('--maximize_adj_mean', action="store_true")
@@ -166,8 +175,8 @@ def main():
 
     parser.add_argument('--test_type', type=str, default='mine')
 
-    parser.add_argument('--lr', type=float, default=1e-3)
-    parser.add_argument('--l2', type=float, default=0.)
+    #parser.add_argument('--lr', type=float, default=1e-3)
+
 
     parser.add_argument('--num_const', type=float, default=1e-6)
 
@@ -175,6 +184,7 @@ def main():
     parser.add_argument('--val_freq', type=int, default=100)
     parser.add_argument('--weight_decay', type=float, default=0)
 
+    # TODO: go through where these arguments are been used
     parser.add_argument('--seed', type=int, default=100001)
     parser.add_argument('--n_train', type=int, default=1000)
     parser.add_argument('--n_val', type=int, default=1000)
@@ -183,20 +193,21 @@ def main():
     parser.add_argument('--batch_size', type=int, default=100)
     parser.add_argument('--test_batch_size', type=int, default=1000)
     parser.add_argument('--test_burn_in', type=int, default=0)
-    parser.add_argument('--mode', type=str, default="fs")  # TODO: check args.mode
-    parser.add_argument('--viz_freq', type=int, default=100)
-    parser.add_argument('--save_freq', type=int, default=10000)
+    #parser.add_argument('--mode', type=str, default="fs")  # TODO: check args.mode
+    #parser.add_argument('--viz_freq', type=int, default=100)
+    #parser.add_argument('--save_freq', type=int, default=10000)
 
     parser.add_argument('--gpu', type=int, default=0)
-    parser.add_argument('--base_dist', action="store_true") # TODO: go through where these arguments are been used
-    parser.add_argument('--t_iters', type=int, default=5)
-    parser.add_argument('--k_dim', type=int, default=1)
-    parser.add_argument('--sn', type=float, default=-1.)
+    # parser.add_argument('--base_dist', action="store_true")
+
+    #parser.add_argument('--t_iters', type=int, default=5)
+    #parser.add_argument('--k_dim', type=int, default=1)
+    #parser.add_argument('--sn', type=float, default=-1.)
 
     parser.add_argument('--exact_trace', action="store_true")
     parser.add_argument('--quadratic', action="store_true")
     parser.add_argument('--n_steps', type=int, default=100)
-    parser.add_argument('--both_scaled', action="store_true")
+    #parser.add_argument('--both_scaled', action="store_true")
 
     # the number of iterations for each pair of values of lambda and perturbation rate
     # this is used as the denominator for calculating the rejection rate
